@@ -41,12 +41,14 @@
             <th>番号</th>
             <th>Done</th>
             <th>作成日</th>
+            <th>完了日時</th>
             
         </tr>
         <tr th:each="i: ${done}" align="center">
             <td> [[${i.seq}]] </td>
             <td> [[${i.title}]] </td>
             <td> [[${i.createdAt}]] </td>
+            <td> [[${i.doneAt}]] </td>
             
         </tr>
     </table>

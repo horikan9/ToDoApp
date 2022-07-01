@@ -33,6 +33,7 @@
             <th>作成者ID</th>
             <th>Done</th>
             <th>作成日</th>
+            <th>完了日時</th>
             
         </tr>
         <tr th:each="i: ${done}" align="center">
@@ -40,6 +41,7 @@
             <td> [[${i.mid}]] </td>
             <td> [[${i.title}]] </td>
             <td> [[${i.createdAt}]] </td>
+            <td> [[${i.doneAt}]] </td>
             
         </tr>
     </table>

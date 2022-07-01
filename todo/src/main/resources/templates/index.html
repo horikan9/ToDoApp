@@ -8,6 +8,9 @@
 </head>
 <body>
     <h1>ログイン</h1>
+    <div>
+        <img th:src="@{/img/todo_people.png}" />
+    </div>
     <form role="form" th:action="@{/${mid}/login}" th:object="${LoginForm}" method="get">
         <table>
             <tr>
