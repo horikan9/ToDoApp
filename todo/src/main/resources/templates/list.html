@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <!-- 手書きcss, <head>の中に以下のcssを入れる -->
+   <link rel="stylesheet" th:href=@{/css/todo_css.css} />
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,6 +16,7 @@
             <tr>
                 <td><label>ToDoを入力</label></td>
                 <td><input type="text" required th:field="*{title}" /></td>
+                <span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" style="color: red"></span>
                 <td><input type="submit" value="登録する" /></td>
             </tr>
         </table>

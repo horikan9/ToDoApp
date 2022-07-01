@@ -7,6 +7,8 @@ import javax.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,20 +32,24 @@ public class ToDoController {
     ToDoService todoService;
 
     @GetMapping("/")
-    String login(Model model) {
-        LoginForm form = new LoginForm();
+    String login(@ModelAttribute LoginForm form, Model model) {
         model.addAttribute("LoginForm", form);
         return "index";
     }
 
     @GetMapping("/{mid}/login")
-    String login(@RequestParam String mid, Model model) {
+    String login(@Validated @ModelAttribute(name = "LoginForm") LoginForm form,
+            BindingResult bindingResult, @RequestParam String mid, Model model) {
+        if (bindingResult.hasErrors()) {
+            // GETリクエスト用のメソッドを呼び出して、ユーザー登録画面に戻る
+            return login(form, model);
+        }
+
         return "redirect:/" + mid + "/todos";
     }
 
     @GetMapping("/{mid}/todos")
-    String todoList(@PathVariable String mid, Model model) {
-        ToDoForm form = new ToDoForm();
+    String todoList(@PathVariable String mid, @ModelAttribute(name = "ToDoForm") ToDoForm form, Model model) {
         model.addAttribute("ToDoForm", form);
         model.addAttribute("mid", mid);
         Member m = mService.getMember(mid);
@@ -74,7 +80,13 @@ public class ToDoController {
     }
 
     @PostMapping("/{mid}/register")
-    String register(@PathVariable String mid, @ModelAttribute @RequestBody ToDoForm form, Model model) {
+    String register(@PathVariable String mid, @Validated @ModelAttribute(name = "ToDoForm") ToDoForm form,
+            BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            // GETリクエスト用のメソッドを呼び出して、ユーザー登録画面に戻る
+            System.out.println("えらー");
+            return todoList(mid, form, model);
+        }
         todoService.createToDo(mid, form);
         return "redirect:/" + mid + "/todos";
     }
