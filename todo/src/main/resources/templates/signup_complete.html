@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>登録完了</title>
-    <!-- 手書きcss, <head>の中に以下のcssを入れる -->
-    <link rel="stylesheet" th:href=@{/css/todo_css.css} />
 </head>
+
 <body>
     <h1>登録完了</h1>
     <p>
         メンバー登録を完了しました．
-    </p> 
+    </p>
+
     <div th:object="${MemberForm}">
         <p>
             <label>メンバーID: </label>
@@ -23,9 +22,9 @@
             [[*{name}]]
         </p>
         <p>
-            <a th:href=@{/admin/register}>続けて登録</a><br />
-            <a th:href=@{/sign_in}>初めに戻る</a><br />
+            <a th:href=@{/}>初めに戻る</a>
         </p>
     </div>
 </body>
+
 </html>

@@ -23,11 +23,24 @@ public class ToDoService {
         return todoRepo.save(todo);
         /* メンバーmidが新しくToDoを作成する */}
 
-    public ToDo updateToDo(Long seq) {
+    public ToDo doneToDo(Long seq) {
         ToDo todo = getToDo(seq);
-        ToDo newtodo = todo.update();
+        ToDo newtodo = todo.done();
         return todoRepo.save(newtodo);
-        /* メンバーmidが新しくToDoを作成する */}
+    }
+
+    public ToDo updateToDo(String mid, Long seq, ToDoForm form) {
+        ToDo todo = getToDo(seq);
+        String t = form.getTitle();
+        ToDo newtodo = todo.update(t);
+        return todoRepo.save(newtodo);
+    }
+
+    public ToDo done(String mid, Long seq) {
+        ToDo todo = getToDo(seq);
+        ToDo newtodo = todo.done();
+        return todoRepo.save(newtodo);
+    }
 
     public ToDo getToDo(Long seq) {
         ToDo todo = todoRepo.findById(seq).orElseThrow(
@@ -54,5 +67,9 @@ public class ToDoService {
         List<ToDo> list = todoRepo.findToDoByDone(true);
         return list;
         /* 全員のDoneリストを取得 */}
+
+    public void deleteToDo(String mid, Long seq) {
+        todoRepo.deleteById(seq);
+    }
 
 }

@@ -1,53 +1,51 @@
 <!DOCTYPE html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    
-    <!-- 手書きcss, <head>の中に以下のcssを入れる -->
-   <link rel="stylesheet" th:href=@{/css/todo_css.css} />
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ToDO一覧</title>
+    <title>ToDoList</title>
 </head>
+
 <body>
-    <p>[[${name}]]さん、ToDo管理アプリへようこそ！</p>
-    <p>みんなのToDo</p>
-    <input type="button" class="simple_square_btn5"  th:onclick="|location.href='@{/{m}/todos(m=${mid})}'|" value="戻る" />
-    <h1>ToDo一覧</h1>
-    <table table border="1">
+    <h1> みんなのToDoリスト</h1>
+    <p>
+        <a th:href="@{/{mid}/todos(mid=${member.mid})}">自分のToDo</a>
+        <form th:action="@{/sign_out}" method="post">
+            <input type="submit" value="サインアウト" />
+        </form>
+    </p>
+    <h2>ToDo</h2>
+    <table border="1">
         <tr>
-            <th>番号</th>
-            <th>作成者ID</th>
-            <th>ToDo</th>
-            <th>作成日</th>
+            <th>#</th>
+            <th>タイトル</th>
+            <th>作成者</th>
+            <th>作成日時</th>
         </tr>
-        <tr th:each="l: ${todo}" align="center">
-            <td> [[${l.seq}]] </td>
-            <td> [[${l.mid}]] </td>
-            <td> [[${l.title}]] </td>
-            <td> [[${l.createdAt}]] </td>
+        <tr th:each="todo: ${todos}">
+            <td>[[${todo.seq}]]</td>
+            <td>[[${todo.title}]]</td>
+            <td>[[${todo.mid}]]</td>
+            <td>[[${todo.createdAt}]]</td>
         </tr>
     </table>
 
-    <h1>Done一覧</h1>
-    <table table border="1">
+    <h2>Done</h2>
+    <table border="1">
         <tr>
-            <th>番号</th>
-            <th>作成者ID</th>
-            <th>Done</th>
-            <th>作成日</th>
+            <th>#</th>
+            <th>タイトル</th>
+            <th>作成者</th>
             <th>完了日時</th>
-            
         </tr>
-        <tr th:each="i: ${done}" align="center">
-            <td> [[${i.seq}]] </td>
-            <td> [[${i.mid}]] </td>
-            <td> [[${i.title}]] </td>
-            <td> [[${i.createdAt}]] </td>
-            <td> [[${i.doneAt}]] </td>
-            
+        <tr th:each="done: ${dones}">
+            <td>[[${done.seq}]]</td>
+            <td>[[${done.title}]]</td>
+            <td>[[${done.mid}]]</td>
+            <td>[[${done.doneAt}]]</td>
         </tr>
     </table>
 
 </body>
+
 </html>

@@ -14,4 +14,6 @@ public class Member {
     @Id
     String mid; // メンバーID
     String name; // 氏名
+    String password; // パスワード（暗号化済）
+    String role; // ロール
 }

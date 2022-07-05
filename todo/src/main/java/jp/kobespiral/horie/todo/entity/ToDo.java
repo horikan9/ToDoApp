@@ -29,10 +29,17 @@ public class ToDo {
     @Temporal(TemporalType.TIMESTAMP)
     Date doneAt; // 完了日時
 
-    public ToDo update() {
+    public ToDo done() {
         this.done = true;
         Date date = new Date();
         this.doneAt = date;
+        return this;
+    }
+
+    public ToDo update(String t) {
+        this.title = t;
+        Date date = new Date();
+        this.createdAt = date;
         return this;
     }
 }
