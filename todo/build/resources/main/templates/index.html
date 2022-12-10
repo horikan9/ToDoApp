@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ログイン画面</title>
+</head>
+<body>
+    <h1>ログイン</h1>
+    <form role="form" th:action="@{/${mid}/login}" th:object="${LoginForm}" method="get">
+        <table>
+            <tr>
+                <td><label>IDを入力</label></td>
+                <td><input type="text" required th:field="*{mid}" /></td>
+            </tr>
+        </table>
+        <p><input type="submit" value="ログインする" /></p>
+    </form>
+
+</body>
+</html>

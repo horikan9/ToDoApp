@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDO一覧</title>
+</head>
+<body>
+    <p>[[${name}]]さん、ToDo管理アプリへようこそ！</p>
+    <input type="button" class="simple_square_btn5"  th:onclick="|location.href='@{/{m}/alltodos(m=${mid})}'|" value="みんなのToDoを見る" />
+    <form role="form" th:action="@{/{m}/register(m=${mid})}" th:object="${ToDoForm}" method="post">
+        <table>
+            <tr>
+                <td><label>ToDoを入力</label></td>
+                <td><input type="text" required th:field="*{title}" /></td>
+                <td><input type="submit" value="登録する" /></td>
+            </tr>
+        </table>
+        
+    </form>
+    <h1>ToDo一覧</h1>
+    <table table border="1">
+        <tr>
+            <th>番号</th>
+            <th>ToDo</th>
+            <th>作成日</th>
+            <th>ボタン</th>
+        </tr>
+        <tr th:each="l: ${todo}" align="center">
+            <td> [[${l.seq}]] </td>
+            <td> [[${l.title}]] </td>
+            <td> [[${l.createdAt}]] </td>
+            <td><a th:href=@{/{m}/{i}/done(m=${l.mid},i=${l.seq})}>Done</a></td>
+        </tr>
+    </table>
+
+    <h1>Done一覧</h1>
+    <table table border="1">
+        <tr>
+            <th>番号</th>
+            <th>Done</th>
+            <th>作成日</th>
+            
+        </tr>
+        <tr th:each="i: ${done}" align="center">
+            <td> [[${i.seq}]] </td>
+            <td> [[${i.title}]] </td>
+            <td> [[${i.createdAt}]] </td>
+            
+        </tr>
+    </table>
+
+</body>
+</html>
